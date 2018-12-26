@@ -2,7 +2,7 @@ package pl.moscicki.remoteserver;
 
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.util.Queue;
 
 @Component
 class QueueService {
@@ -12,11 +12,11 @@ class QueueService {
     this.database = database;
   }
 
-  List<String> getQueue() {
+  Queue<String> getQueue() {
     return database.getPeople();
   }
 
-  public void addToQueue(String person) {
+  void addToQueue(String person) {
     database.getPeople().add(person);
   }
 }

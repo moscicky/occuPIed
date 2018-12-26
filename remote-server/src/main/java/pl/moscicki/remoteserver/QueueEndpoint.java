@@ -1,10 +1,9 @@
 package pl.moscicki.remoteserver;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Queue;
 
 @RestController
 @RequestMapping("/queue")
@@ -17,7 +16,7 @@ class QueueEndpoint {
   }
 
   @GetMapping("/all")
-  public List<String> getQueue() {
+  public Queue<String> getQueue() {
     return queueService.getQueue();
   }
 
