@@ -1,1 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- <link rel="icon" href="assets/img/favicon.ico"> -->
+
+    <title>occuPIed</title>
+
+    <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.css">
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js"></script>
+  </head>
+
+  <body>
+    <div data-role="page" id="login-panel">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Welcome</h1>
+                    <form action="" method="post">
+                        <input type="text" id="username" placeholder="Username"></input>
+                        <input type="button" id="login" value="Sign in"></input>
+                        <p id="server-err">Server connection error</p>
+                        <p id="username-err">Wrong username</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div data-role="page" id="main-app">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Occupied</h1>
+                    <p id="not-occupied">Toilet is not occupied</p>
+                    <p id="is-occupied">Occupied by</p>
+                    <h2>Queue</h2>
+                    <p id="is-empty">Empty</p>
+                </div>
+                <div class="col-md-12" id="controls">
+                    <input type="button" id="add-btn" value="Add me to queue"></input>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/script.js"></script>
+  </body>
+</html>

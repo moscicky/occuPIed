@@ -1,0 +1,15 @@
+@font-face{
+    font-family: 'Custom Md';
+    src: url('../fonts/HelveticaNeueLTPro-Md.woff') format('woff');
+}
+@font-face{
+    font-family: 'Custom Th';
+    src: url('../fonts/HelveticaNeueLTPro-Th.woff') format('woff');
+}
+@font-face{
+    font-family: 'Custom Ul';
+    src: url('../fonts/HelveticaNeueLTPro-UltLt.woff') format('woff');
+}
+body{
+    font-family: 'Custom Th';
+}
