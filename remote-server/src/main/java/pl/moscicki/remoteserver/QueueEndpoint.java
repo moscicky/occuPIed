@@ -16,11 +16,13 @@ class QueueEndpoint {
     this.queueService = queueService;
   }
 
+  @CrossOrigin
   @GetMapping("/all")
   Queue<String> getQueue() {
     return queueService.getQueue();
   }
 
+  @CrossOrigin
   @PostMapping("/add")
   ResponseEntity<String> addToQueue(@RequestBody @Validated String username) {
     return ResponseEntity.ok().body(queueService.addToQueue(username));
