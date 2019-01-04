@@ -28,6 +28,7 @@ class QueueEndpoint {
     return ResponseEntity.ok().body(queueService.addToQueue(username));
   }
 
+  @CrossOrigin
   @PostMapping("/scan")
   ResponseEntity<AccessDto> scanCard(@RequestBody @Validated Integer[] uuid) {
     return ResponseEntity.ok().body(queueService.scan(uuid));
