@@ -2,7 +2,7 @@ package pl.moscicki.remoteserver;
 
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
+import java.util.Arrays;
 import java.util.Queue;
 
 @Component
@@ -25,4 +25,20 @@ class QueueService {
       return "No such user registered";
     }
   }
+
+  synchronized AccessDto scan(Integer[] uuid) {
+    if (Arrays.equals(database.getUsers().get(getQueue().peek()), uuid)) {
+      if (database.isToiletOccupied()) {
+        getQueue().poll();
+        return new AccessDto(uuid, AccessStatus.REVOKED);
+      } else {
+        database.setToiletOccupied(true);
+        return new AccessDto(uuid, AccessStatus.GRANTED);
+      }
+    } else {
+      return new AccessDto(uuid, AccessStatus.DENIED);
+    }
+  }
+
+
 }

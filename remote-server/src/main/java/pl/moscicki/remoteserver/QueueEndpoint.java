@@ -21,8 +21,14 @@ class QueueEndpoint {
     return queueService.getQueue();
   }
 
-  @PostMapping
+  @PostMapping("/add")
   ResponseEntity<String> addToQueue(@RequestBody @Validated String person) {
     return ResponseEntity.ok().body(queueService.addToQueue(person));
   }
+
+  @PostMapping("/scan")
+  ResponseEntity<AccessDto> scanCard(@RequestBody @Validated Integer[] uuid) {
+    return ResponseEntity.ok().body(queueService.scan(uuid));
+  }
+
 }

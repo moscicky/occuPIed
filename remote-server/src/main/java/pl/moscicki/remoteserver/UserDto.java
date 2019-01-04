@@ -9,7 +9,7 @@ class UserDto {
     this.uuid = uuid;
   }
 
-  String getName() {
+  public String getName() {
     return name;
   }
 
@@ -17,7 +17,7 @@ class UserDto {
     this.name = name;
   }
 
-  Integer[] getUuid() {
+  public Integer[] getUuid() {
     return uuid;
   }
 
