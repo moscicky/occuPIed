@@ -23,4 +23,8 @@ class UserService {
             .collect(Collectors.toSet());
   }
 
+  UserExistsDto userExists(String username) {
+    return new UserExistsDto(database.getUsers().containsKey(username));
+  }
+
 }

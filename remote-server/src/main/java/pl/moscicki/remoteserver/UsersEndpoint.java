@@ -24,4 +24,9 @@ class UsersEndpoint {
   Set<UserDto> getUsers(){
     return userService.getUsers();
   }
+
+  @PostMapping("/exists")
+  UserExistsDto checkUserExistance(@RequestBody @Validated String username) {
+    return userService.userExists(username);
+  }
 }

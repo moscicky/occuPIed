@@ -37,12 +37,12 @@ class QueueService {
   synchronized AccessDto scan(Integer[] uuid) {
     if (Arrays.equals(database.getUsers().get(getQueue().peek()), uuid)) {
       if (database.isToiletOccupied()) {
-        String userLeft = getQueue().poll();
-        updateFrontend(userLeft, AccessStatus.REVOKED);
+       getQueue().poll();
+        updateFrontend(getQueue(), false);
         return new AccessDto(uuid, AccessStatus.REVOKED);
       } else {
         database.setToiletOccupied(true);
-        updateFrontend(getQueue().peek(), AccessStatus.GRANTED);
+        updateFrontend(getQueue(), true);
         return new AccessDto(uuid, AccessStatus.GRANTED);
       }
     } else {
@@ -50,8 +50,8 @@ class QueueService {
     }
   }
 
-  private void updateFrontend(String user, AccessStatus status) {
-    HttpEntity<QueueUpdateDto> request = new HttpEntity<>(new QueueUpdateDto(user, status));
+  private void updateFrontend(Queue<String> queue, boolean isOccupied) {
+    HttpEntity<QueueUpdateDto> request = new HttpEntity<>(new QueueUpdateDto(queue, isOccupied));
     restTemplate.postForEntity(frontendUrl, request, String.class);
   }
 

@@ -1,27 +1,29 @@
 package pl.moscicki.remoteserver;
 
+import java.util.Queue;
+
 public class QueueUpdateDto {
-  private String username;
-  private AccessStatus status;
+  private Queue<String> queue;
+  private boolean occupied;
 
-  public QueueUpdateDto(String username, AccessStatus status) {
-    this.username = username;
-    this.status = status;
+  public QueueUpdateDto(Queue<String> queue, boolean occupied) {
+    this.queue = queue;
+    this.occupied = occupied;
   }
 
-  public AccessStatus getStatus() {
-    return status;
+  public Queue<String> getQueue() {
+    return queue;
   }
 
-  public void setStatus(AccessStatus status) {
-    this.status = status;
+  public void setQueue(Queue<String> queue) {
+    this.queue = queue;
   }
 
-  public String getUsername() {
-    return username;
+  public boolean isOccupied() {
+    return occupied;
   }
 
-  public void setUsername(String username) {
-    this.username = username;
+  public void setOccupied(boolean occupied) {
+    this.occupied = occupied;
   }
 }
