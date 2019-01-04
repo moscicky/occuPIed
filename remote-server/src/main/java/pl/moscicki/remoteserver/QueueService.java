@@ -2,21 +2,27 @@ package pl.moscicki.remoteserver;
 
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 import java.util.Queue;
 
 @Component
 class QueueService {
   private final Db database;
 
-  public QueueService(Db database) {
+  QueueService(Db database) {
     this.database = database;
   }
 
   Queue<String> getQueue() {
-    return database.getPeople();
+    return database.getQueue();
   }
 
-  void addToQueue(String person) {
-    database.getPeople().add(person);
+  String addToQueue(String person) {
+    if (database.getUsers().containsKey(person)) {
+      database.getQueue().add(person);
+      return String.format("%s added to queue successfully", person);
+    } else {
+      return "No such user registered";
+    }
   }
 }
