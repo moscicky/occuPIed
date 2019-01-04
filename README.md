@@ -1,4 +1,4 @@
-# occuPIed
+# occu-Pi-ed
 Project for Embedded Systems at our UNI.
 
 Goal is to build a web application using Raspbery Pi.
