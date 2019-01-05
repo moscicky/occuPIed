@@ -16,16 +16,26 @@ class QueueEndpoint {
     this.queueService = queueService;
   }
 
+  @CrossOrigin
   @GetMapping("/all")
   Queue<String> getQueue() {
     return queueService.getQueue();
   }
 
-  @PostMapping("/add")
-  ResponseEntity<String> addToQueue(@RequestBody @Validated String username) {
-    return ResponseEntity.ok().body(queueService.addToQueue(username));
+  @CrossOrigin
+  @GetMapping("/status")
+  QueueUpdateDto getQueueStatus() {
+    return queueService.getQueueStatus();
   }
 
+
+  @CrossOrigin
+  @PostMapping("/add")
+  String addToQueue(@RequestBody @Validated String username) {
+    return queueService.addToQueue(username);
+  }
+
+  @CrossOrigin
   @PostMapping("/scan")
   ResponseEntity<AccessDto> scanCard(@RequestBody @Validated Integer[] uuid) {
     return ResponseEntity.ok().body(queueService.scan(uuid));

@@ -15,16 +15,19 @@ class UsersEndpoint {
     this.userService = userService;
   }
 
+  @CrossOrigin
   @PostMapping
   void add(@RequestBody @Validated UserDto user) {
     userService.addUser(user);
   }
 
+  @CrossOrigin
   @GetMapping("/all")
   Set<UserDto> getUsers(){
     return userService.getUsers();
   }
 
+  @CrossOrigin
   @PostMapping("/exists")
   UserExistsDto checkUserExistance(@RequestBody @Validated String username) {
     return userService.userExists(username);
