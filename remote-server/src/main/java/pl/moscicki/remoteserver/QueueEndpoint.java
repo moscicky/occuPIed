@@ -23,6 +23,13 @@ class QueueEndpoint {
   }
 
   @CrossOrigin
+  @GetMapping("/status")
+  QueueUpdateDto getQueueStatus() {
+    return queueService.getQueueStatus();
+  }
+
+
+  @CrossOrigin
   @PostMapping("/add")
   String addToQueue(@RequestBody @Validated String username) {
     return queueService.addToQueue(username);

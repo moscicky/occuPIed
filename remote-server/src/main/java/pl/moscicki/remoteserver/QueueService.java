@@ -25,6 +25,10 @@ class QueueService {
     return database.getQueue();
   }
 
+  QueueUpdateDto getQueueStatus() {
+    return new QueueUpdateDto(getQueue(), database.isToiletOccupied());
+  }
+
   String addToQueue(String person) {
     if (database.getUsers().containsKey(person)) {
       database.getQueue().add(person);
@@ -38,11 +42,11 @@ class QueueService {
     if (Arrays.equals(database.getUsers().get(getQueue().peek()), uuid)) {
       if (database.isToiletOccupied()) {
        getQueue().poll();
-        updateFrontend(getQueue(), false);
+//        updateFrontend(getQueue(), false);
         return new AccessDto(uuid, AccessStatus.REVOKED);
       } else {
         database.setToiletOccupied(true);
-        updateFrontend(getQueue(), true);
+//        updateFrontend(getQueue(), true);
         return new AccessDto(uuid, AccessStatus.GRANTED);
       }
     } else {
