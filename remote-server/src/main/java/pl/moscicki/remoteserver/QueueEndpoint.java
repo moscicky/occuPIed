@@ -24,8 +24,8 @@ class QueueEndpoint {
 
   @CrossOrigin
   @PostMapping("/add")
-  ResponseEntity<String> addToQueue(@RequestBody @Validated String username) {
-    return ResponseEntity.ok().body(queueService.addToQueue(username));
+  String addToQueue(@RequestBody @Validated String username) {
+    return queueService.addToQueue(username);
   }
 
   @CrossOrigin
