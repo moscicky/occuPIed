@@ -31,7 +31,11 @@ class QueueService {
 
   String addToQueue(String person) {
     if (database.getUsers().containsKey(person)) {
-      database.getQueue().add(person);
+      if (database.getQueue().contains(person)) {
+        return String.format("%s already in the queue", person);
+      } else {
+        database.getQueue().add(person);
+      }
       return String.format("%s added to queue successfully", person);
     } else {
       return "No such user registered";
