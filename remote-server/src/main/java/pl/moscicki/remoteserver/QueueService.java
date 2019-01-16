@@ -61,7 +61,7 @@ class QueueService {
        //Remove user from the top of the queue and free the toilet, revoke the access
        getQueue().poll();
        database.setToiletOccupied(false);
-       countTimeAsFirst();
+       database.setTimeAsFirst(System.currentTimeMillis());
         return new AccessDto(uuid, AccessStatus.REVOKED);
       } else {
         //Set toilet as occupied, grant the access
@@ -94,6 +94,7 @@ class QueueService {
       //30 second from being first
       if (System.currentTimeMillis() - database.getTimeAsFirst() > 30000) {
         database.getQueue().poll();
+        database.setTimeAsFirst(System.currentTimeMillis());
       }
     }
   }
