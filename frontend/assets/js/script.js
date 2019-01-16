@@ -1,5 +1,41 @@
-const URL = 'http://localhost:8080';
+const URL = 'https://occupied-server.herokuapp.com';
+let logged = false;
 let username = '';
+let newUser = '';
+let uuid = '';
+let queueState;
+
+function InfiniteGetData(){
+    $.ajax({
+        url: URL+'/queue/status',
+        success: function(data){
+            if(data.occupied != false){
+                $('#not-occupied').hide();
+                $('#occupied').html(data.occupied);
+                $('#occupied').show();
+            }else{
+                $('#not-occupied').show();
+                $('#occupied').hide();
+            }
+            if(data.queue != [] && queueState != data.queue){
+                let queue = (data.queue).map((user)=>{
+                    return("<p>"+user+"</p");
+                })
+                $('#is-empty').hide();
+                $('#queue').html(queue);
+                $('#queue').show();
+            }else{
+                $('#is-empty').show();
+                $('#queue').hide();
+            }
+            queueState = data.queue;
+            console.log(data.queue, queueState);
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            alert(thrownError);
+        }
+    });
+};
 
 function userExists(){
     $.ajax({
@@ -11,17 +47,19 @@ function userExists(){
         success: function(data){
             if(data.exists == true)
             {
-                $.mobile.changePage("#main-app");
+                $("#login-panel").hide();
+                $("#main-app").show();
+                $("#is-empty").show();
                 console.log(data)
             }
             else
             {
-                $("#username-err").show();
+                $(".username-err").show();
                 console.log(data)
             }
         }
     }).fail(function(err){
-        $("#server-err").show();
+        $(".server-err").show();
     });
 }
 
@@ -37,6 +75,22 @@ function addToQueue(){
     });
 }
 
+function addNewUser(){
+    const uuidSplt = uuid.split(",").map(Number);
+    $.ajax({
+        type: 'POST',
+        url: URL+'/users',
+        contentType: "application/json",
+        data: JSON.stringify({ name: newUser, uuid: uuidSplt }),
+        success: function(data){
+            console.log("[ADD]",data)
+        }
+    }).fail(function(err){
+        $(".server-err").show();
+    });
+    console.log("[NEW]",newUser,uuidSplt);
+}
+
 function isOccupied(){
     $.ajax({
         type: 'GET',
@@ -44,8 +98,24 @@ function isOccupied(){
         contentType: "application/json",
         dataType: "json",
         success: function(data){
-            $('#is-occupied').append(data);
-            console.log(data);
+            occupiedData = data;
+            if(data.occupied != false){
+                $('#not-occupied').hide();
+                $('#occupied').html(data.occupied);
+                $('#occupied').show();
+            }else{
+                $('#not-occupied').show();
+                $('#occupied').hide();
+            }
+            if(data.queue != []){
+                $('#is-empty').hide();
+                $('#queue').html(data.queue);
+                $('#queue').show();
+            }else{
+                $('#is-empty').show();
+                $('#queue').hide();
+            }
+            console.log(data.queue);
         }
 
     }).fail(function(err){
@@ -53,36 +123,43 @@ function isOccupied(){
     })
 }
 
+$(document).ready(function(){
 
-$(document).on('pagebeforeshow', '#login-panel', function(){
-    $("#server-err").hide();
-    $("#username-err").hide();
+    $("#main-app").hide();
+    $(".server-err").hide();
+    $(".username-err").hide();
+    $("#new-user-panel").hide();
+
+    setInterval(()=>{InfiniteGetData()},2000);
 
     $("#login").click(function(){
         username = $('#username').val();
         userExists();
     });
 
-    $("#logout").click(function() {
-        $("form")[0].reset();
-        $("#login-panel").show();
-        $("#main-app").hide();
-        $("#server-err").hide();
-        $("#username-err").hide();  
-    });
-});
-
-$(document).on('pagebeforeshow', '#main-app', function(){
-
-    isOccupied();
-
     $("#add-btn").click(function(){
         addToQueue();
-        isOccupied();
     });
 
-    $("#refresh-btn").click(function(){
-        isOccupied();
+    $("#new-user-btn").click(function(){
+        $("#login-panel").hide();
+        $("#new-user-panel").show();
     });
+
+    $("#login-panel-btn").click(function(){
+        $("#new-user-panel").hide();
+        $("#login-panel").show();
+    });
+
+    $("#login-panel-btn").click(function(){
+        $("#main-app").hide();
+        $("#login-panel").show();
+    });
+
+    $("#register").click(function(){
+        newUser = $('#new-user').val();
+        uuid = $('#uuid').val();
+        addNewUser();
+    })
 
 });
