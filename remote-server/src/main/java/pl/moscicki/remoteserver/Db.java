@@ -9,10 +9,16 @@ import java.util.Queue;
 
 @Component
 public class Db {
+  //is the toilet occupied
   private boolean toiletOccupied;
 
+  //time at which user was promoted to first
+  private long timeAsFirst;
+
+  //usernames and their corresponding uuids
   private Map<String, Integer[]> users;
 
+  //queue with usernames
   private Queue<String> queue;
 
   Db() {
@@ -20,6 +26,8 @@ public class Db {
     users = new HashMap<>();
     queue = new LinkedList<>();
   }
+
+
 
   Map<String, Integer[]> getUsers() {
     return users;
@@ -43,5 +51,13 @@ public class Db {
 
   public void setToiletOccupied(boolean toiletOccupied) {
     this.toiletOccupied = toiletOccupied;
+  }
+
+  public long getTimeAsFirst() {
+    return timeAsFirst;
+  }
+
+  public void setTimeAsFirst(long timeAsFirst) {
+    this.timeAsFirst = timeAsFirst;
   }
 }

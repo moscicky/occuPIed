@@ -27,4 +27,11 @@ class UserService {
     return new UserExistsDto(database.getUsers().containsKey(username));
   }
 
+  synchronized void deleteUser(String username) {
+    database.getUsers().remove(username);
+    if (database.getQueue().peek() != null && database.getQueue().peek().equals(username)) {
+      database.setToiletOccupied(false);
+    }
+    database.getQueue().remove(username);
+  }
 }

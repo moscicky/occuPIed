@@ -32,4 +32,10 @@ class UsersEndpoint {
   UserExistsDto checkUserExistance(@RequestBody @Validated String username) {
     return userService.userExists(username);
   }
+
+  @CrossOrigin
+  @DeleteMapping
+  void deleteUser(@RequestBody @Validated String username) {
+    userService.deleteUser(username);
+  }
 }

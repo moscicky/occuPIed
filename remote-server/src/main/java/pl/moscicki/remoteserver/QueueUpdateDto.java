@@ -5,10 +5,17 @@ import java.util.Queue;
 public class QueueUpdateDto {
   private Queue<String> queue;
   private boolean occupied;
+  private Long secondsLeft;
 
   public QueueUpdateDto(Queue<String> queue, boolean occupied) {
     this.queue = queue;
     this.occupied = occupied;
+  }
+
+  public QueueUpdateDto(Queue<String> queue, boolean occupied, Long secondsLeft) {
+    this.queue = queue;
+    this.occupied = occupied;
+    this.secondsLeft = secondsLeft;
   }
 
   public Queue<String> getQueue() {
@@ -25,5 +32,13 @@ public class QueueUpdateDto {
 
   public void setOccupied(boolean occupied) {
     this.occupied = occupied;
+  }
+
+  public Long getSecondsLeft() {
+    return secondsLeft;
+  }
+
+  public void setSecondsLeft(long secondsLeft) {
+    this.secondsLeft = secondsLeft;
   }
 }
